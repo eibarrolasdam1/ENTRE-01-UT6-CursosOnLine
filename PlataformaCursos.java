@@ -20,179 +20,172 @@ import java.util.TreeSet;
  */
 public class PlataformaCursos
 {
+    private final String ESPACIO = " ";
+    private final String SEPARADOR = ":";
+    private TreeMap<String, ArrayList<Curso>> plataforma;
 
-	private final String ESPACIO = " ";
-	private final String SEPARADOR = ":";
-	private TreeMap<String, ArrayList<Curso>> plataforma;
+    /**
+     * Constructor  
+     */
+    public PlataformaCursos() {
+        plataforma = new TreeMap<>();
+    }
 
-	/**
-	 * Constructor  
-	 */
-	public PlataformaCursos() {
+    /**
+     * añadir un nuevo curso al map en la categoría indicada
+     * Si ya existe la categoría se añade en ella el nuevo curso
+     * (al final de la lista)
+     * En caso contrario se creará una nueva entrada en el map con
+     * la nueva categoría y el curso que hay en ella
+     * Las claves siempre se añaden en mayúsculas  
+     *  
+     */
+    public void addCurso(String categoria, Curso curso) {
+        if (plataforma.containsKey(categoria)) {
+           ArrayList<Curso> array = plataforma.get(categoria);
+           array.add(curso);
+        } else {
+            ArrayList<Curso> array = new ArrayList<>();
+            array.add(curso);
+            plataforma.put(categoria, array);
+        }
+    }
+    
+    /**
+     *  Devuelve la cantidad de cursos en la categoría indicada
+     *  Si no existe la categoría devuelve -1
+     *
+     */
+    public int totalCursosEn(String categoria) {
+        if (plataforma.containsKey(categoria)) {
+            ArrayList<Curso> array = plataforma.get(categoria);
+            return array.size();
+        }
+        return -1;
+    }
 
-		plataforma = new TreeMap<>();
+    /**
+     * Representación textual de la plataforma (el map), cada categoría
+     * junto con el nº total de cursos que hay en ella y a continuación
+     * la relación de cursos en esa categoría (ver resultados de ejecución)
+     * 
+     * De forma eficiente ya que habrá muchas concatenaciones
+     * 
+     * Usar el conjunto de entradas y un iterador
+     */
+    public String toString() {
+        
+        return "";
+    }
 
-	}
+    /**
+     * Mostrar la plataforma
+     */
+    public void escribir() {
 
-	/**
-	 * añadir un nuevo curso al map en la categoría indicada
-	 * Si ya existe la categoría se añade en ella el nuevo curso
-	 * (al final de la lista)
-	 * En caso contrario se creará una nueva entrada en el map con
-	 * la nueva categoría y el curso que hay en ella
-	 * Las claves siempre se añaden en mayúsculas  
-	 *  
-	 */
-	public void addCurso(String categoria, Curso curso) {
+        System.out.println(this.toString());
+    }
 
-		 
+    /**
+     *  Lee de un fichero de texto la información de los cursos
+     *  En cada línea del fichero se guarda la información de un curso
+     *  con el formato "categoria:nombre:fecha publicacion:nivel"
+     *  
+     */
+    public void leerDeFichero() {
+        Scanner sc = new Scanner(
+                this.getClass().getResourceAsStream("/cursos.csv"));
+        while (sc.hasNextLine())  {
+            String lineaCurso = sc.nextLine().trim();
+            int p = lineaCurso.indexOf(SEPARADOR);
+            String categoria = lineaCurso.substring(0, p).trim();
+            Curso curso = obtenerCurso(lineaCurso.substring(p + 1));
+            this.addCurso(categoria, curso);
+        }
+    }
 
-	}
+    /**
+     *  Dado un String con los datos de un curso
+     *  obtiene y devuelve un objeto Curso
+     *
+     *  Ej. a partir de  "sql essential training: 3/12/2019 : principiante " 
+     *  obtiene el objeto Curso correspondiente
+     *  
+     *  Asumimos todos los valores correctos aunque puede haber 
+     *  espacios antes y después de cada dato
+     */
+    private Curso obtenerCurso(String lineaCurso) {
+        return null;
+    }
 
-	/**
-	 *  Devuelve la cantidad de cursos en la categoría indicada
-	 *  Si no existe la categoría devuelve -1
-	 *
-	 */
-	public int totalCursosEn(String categoria) {
+    /**
+     * devuelve un nuevo conjunto con los nombres de todas las categorías  
+     *  
+     */
+    public TreeSet<String> obtenerCategorias() {
 
-		 
-		return 0;
-	}
+        return null;
 
-	/**
-	 * Representación textual de la plataforma (el map), cada categoría
-	 * junto con el nº total de cursos que hay en ella y a continuación
-	 * la relación de cursos en esa categoría (ver resultados de ejecución)
-	 * 
-	 * De forma eficiente ya que habrá muchas concatenaciones
-	 * 
-	 * Usar el conjunto de entradas y un iterador
-	 */
-	public String toString() {
+    }
 
-		 
-		return "";
+    /**
+     * borra de la plataforma los cursos de la categoría y nivel indicados
+     * Se devuelve un conjunto (importa el orden) con los nombres de los cursos borrados 
+     * 
+     * Asumimos que existe la categoría
+     *  
+     */
 
-	}
+    public TreeSet<String> borrarCursosDe(String categoria, Nivel nivel) {
 
-	/**
-	 * Mostrar la plataforma
-	 */
-	public void escribir() {
+        return null;
+    }
 
-		System.out.println(this.toString());
-	}
+    /**
+     *   Devuelve el nombre del curso más antiguo en la
+     *   plataforma (el primero publicado)
+     */
 
-	/**
-	 *  Lee de un fichero de texto la información de los cursos
-	 *  En cada línea del fichero se guarda la información de un curso
-	 *  con el formato "categoria:nombre:fecha publicacion:nivel"
-	 *  
-	 */
-	public void leerDeFichero() {
+    public String cursoMasAntiguo() {
 
-		Scanner sc = new Scanner(
-		                this.getClass().getResourceAsStream("/cursos.csv"));
-		while (sc.hasNextLine())  {
-			String lineaCurso = sc.nextLine().trim();
-			int p = lineaCurso.indexOf(SEPARADOR);
-			String categoria = lineaCurso.substring(0, p).trim();
-			Curso curso = obtenerCurso(lineaCurso.substring(p + 1));
-			this.addCurso(categoria, curso);
-		}
+        return "";
+    }
 
-	}
+    /**
+     *  
+     */
+    public static void main(String[] args) {
 
-	/**
-	 *  Dado un String con los datos de un curso
-	 *  obtiene y devuelve un objeto Curso
-	 *
-	 *  Ej. a partir de  "sql essential training: 3/12/2019 : principiante " 
-	 *  obtiene el objeto Curso correspondiente
-	 *  
-	 *  Asumimos todos los valores correctos aunque puede haber 
-	 *  espacios antes y después de cada dato
-	 */
-	private Curso obtenerCurso(String lineaCurso) {
+        PlataformaCursos plataforma = new PlataformaCursos();
+        plataforma.leerDeFichero();
+        plataforma.escribir();
 
-		 
-		return null;
+        System.out.println(
+            "Curso más antiguo: " + plataforma.cursoMasAntiguo()
+            + "\n");
 
-	}
+        String categoria = "bases de datos";
+        Nivel nivel = Nivel.AVANZADO;
+        System.out.println("------------------");
+        System.out.println(
+            "Borrando cursos de " + categoria.toUpperCase()
+            + " y nivel "
+            + nivel);
+        TreeSet<String> borrados = plataforma.borrarCursosDe(categoria, nivel);
 
-	/**
-	 * devuelve un nuevo conjunto con los nombres de todas las categorías  
-	 *  
-	 */
-	public TreeSet<String> obtenerCategorias() {
+        System.out.println("Borrados " + " = " + borrados.toString() + "\n");
+        categoria = "cms";
+        nivel = Nivel.INTERMEDIO;
+        System.out.println(
+            "Borrando cursos de " + categoria.toUpperCase()
+            + " y nivel "
+            + nivel);
+        borrados = plataforma.borrarCursosDe(categoria, nivel);
+        System.out.println("Borrados " + " = " + borrados.toString() + "\n");
+        System.out.println("------------------\n");
+        System.out.println(
+            "Después de borrar ....");
+        plataforma.escribir();
 
-		return null;
-
-	}
-
-	/**
-	 * borra de la plataforma los cursos de la categoría y nivel indicados
-	 * Se devuelve un conjunto (importa el orden) con los nombres de los cursos borrados 
-	 * 
-	 * Asumimos que existe la categoría
-	 *  
-	 */
-
-	public      borrarCursosDe(String categoria, Nivel nivel) {
-
-		 
-		return null;
-
-	}
-
-	/**
-	  *   Devuelve el nombre del curso más antiguo en la
-	  *   plataforma (el primero publicado)
-	  */
-
-	public String cursoMasAntiguo() {
-
-		 
-
-		return "";
-	}
-
-	/**
-	 *  
-	 */
-	public static void main(String[] args) {
-
-		PlataformaCursos plataforma = new PlataformaCursos();
-		plataforma.leerDeFichero();
-		plataforma.escribir();
-
-		System.out.println(
-		                "Curso más antiguo: " + plataforma.cursoMasAntiguo()
-		                                + "\n");
-
-		String categoria = "bases de datos";
-		Nivel nivel = Nivel.AVANZADO;
-		System.out.println("------------------");
-		System.out.println(
-		                "Borrando cursos de " + categoria.toUpperCase()
-		                                + " y nivel "
-		                                + nivel);
-		TreeSet<String> borrados = plataforma.borrarCursosDe(categoria, nivel);
-
-		System.out.println("Borrados " + " = " + borrados.toString() + "\n");
-		categoria = "cms";
-		nivel = Nivel.INTERMEDIO;
-		System.out.println(
-		                "Borrando cursos de " + categoria.toUpperCase()
-		                                + " y nivel "
-		                                + nivel);
-		borrados = plataforma.borrarCursosDe(categoria, nivel);
-		System.out.println("Borrados " + " = " + borrados.toString() + "\n");
-		System.out.println("------------------\n");
-		System.out.println(
-		                "Después de borrar ....");
-		plataforma.escribir();
-
-	}
+    }
 }
