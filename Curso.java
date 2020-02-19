@@ -31,66 +31,65 @@ public class Curso
      * Si nombre = " sql essential training " devuelve "Sql Essential Training"
      */
     private String capitalizarNombre(String nombre) {
-        char[] caracteres = nombre.toCharArray();
-        caracteres[0] = Character.toUpperCase(caracteres[0]);
-        for (int i = 0; i < nombre.length()- 2; i++) {
-            if (caracteres[i] == ' ') {
-                caracteres[i + 1] = Character.toUpperCase(caracteres[i + 1]);
-            } 
+        StringBuilder sb = new StringBuilder();
+        String nomSinEspacios = nombre.trim();
+        String[] array = nomSinEspacios.split(ESPACIO);
+        for (String mayus: array) {
+            sb.append(mayus.substring(0, 1).toUpperCase()).append(mayus.substring(1)).append(" ");          
         }
-        return new String(caracteres);
+        return sb.toString();
     }
 
-    /**
-     *  accesor para el nombre
-     */
-    public String getNombre() {
-        return this.nombre;
-    }
+        /**
+         *  accesor para el nombre
+         */
+        public String getNombre() {
+            return this.nombre;
+        }
 
-    /**
-     *  accesor para el nivel
-     */
-    public Nivel getNivel() {
-        return this.nivel;
-    }
+        /**
+         *  accesor para el nivel
+         */
+        public Nivel getNivel() {
+            return this.nivel;
+        }
 
-    /**
-     *  accesor para la fecha 
-     */
-    public LocalDate getFecha() {
-        return fecha;
-    }
+        /**
+         *  accesor para la fecha 
+         */
+        public LocalDate getFecha() {
+            return fecha;
+        }
 
-    /**
-     *  accesor para la fecha formateada
-     *  Se devuelve la fecha de publicación del curso como una cadena formateada
-     *  de la forma "día nombre-mes año"  Ej. "03 diciembre 2019" 
-     */
-    public String getFechaFormateada() {
-        String str = "";
-        LocalDate hoy = this.fecha;
-        str = hoy.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"));
-        return str;
-    }
+        /**
+         *  accesor para la fecha formateada
+         *  Se devuelve la fecha de publicación del curso como una cadena formateada
+         *  de la forma "día nombre-mes año"  Ej. "03 diciembre 2019" 
+         */
+        public String getFechaFormateada() {
+            String str = "";
+            LocalDate hoy = this.fecha;
+            str = hoy.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"));
+            return str;
+        }
 
-    /**
-     *  Representación textual del curso
-     */
-    public String toString() {
-        String str = String.format("%20s: %s\n", "Nombre", this.nombre);
-        str += String.format("%20s: %s\n%20s: %s\n", "Publicado desde",
-            this.getFechaFormateada(),
-            "Nivel", this.nivel.toString());
+        /**
+         *  Representación textual del curso
+         */
+        public String toString() {
+            String str = String.format("%20s: %s\n", "Nombre", this.nombre);
+            str += String.format("%20s: %s\n%20s: %s\n", "Publicado desde",
+                this.getFechaFormateada(),
+                "Nivel", this.nivel.toString());
 
-        str += "\n";
-        return str;
-    }
+            str += "\n";
+            return str;
+        }
 
-    /**
-     *  Probar la clase Curso
-     */
-    public static void main(String[] args) {
+        /**
+         *  Probar la clase Curso
+         */
+        public static void main(String[] args) {
         Curso curso1 = new Curso("  sql essential training ",
                 LocalDate.of(2019, 12, 3), Nivel.PRINCIPIANTE);
         System.out.println(curso1.toString());

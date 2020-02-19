@@ -74,8 +74,14 @@ public class PlataformaCursos
      * Usar el conjunto de entradas y un iterador
      */
     public String toString() {
-
-        return "";
+        StringBuilder sb = new StringBuilder();
+        Set<Map.Entry<String, ArrayList<Curso>>> conjuntoEntradas = plataforma.entrySet();
+        Iterator<Map.Entry<String, ArrayList<Curso>>> it = conjuntoEntradas.iterator();
+        while (it.hasNext()) {
+            Map.Entry<String, ArrayList<Curso>> entrada = it.next();
+            sb.append(entrada.getKey()).append("\n").append("\t").append(entrada.getValue().toString());
+        }
+        return sb.toString();
     }
 
     /**
@@ -119,9 +125,9 @@ public class PlataformaCursos
         for (int i = 0; i < array.length; i++) {
             array[i] = array[i].trim();
         }
-        str = array[0].substring(0, lineaCurso.indexOf(SEPARADOR) + 1);
+        str = array[0];
         ArrayList<Curso> curso = plataforma.get(str);
-        Curso c = curso.get(1);
+        Curso c = curso.get(0);
         for (int i = 0; i < plataforma.size(); i++) {
             if  (plataforma.containsValue(curso)) {
                 c = curso.get(i);
@@ -136,10 +142,9 @@ public class PlataformaCursos
      */
     public TreeSet<String> obtenerCategorias() {
         TreeSet<String> tree = new TreeSet<>();
-        ArrayList<Curso> array = plataforma.get(i);
-        for (int i = 0; i < plataforma.size(); i++) {
-            HashSet<Curso> array = plataforma.get(i);
-            tree.add(array.get);
+        Set<String> conjuntoClaves = plataforma.keySet();
+        for (String str: conjuntoClaves) {
+            tree.add(str);
         }
         return tree;
     }
@@ -153,8 +158,24 @@ public class PlataformaCursos
      */
 
     public TreeSet<String> borrarCursosDe(String categoria, Nivel nivel) {
-
-        return null;
+        TreeSet<String> tree = new TreeSet<>();
+        Nivel enQueNivel = nivel;
+        Set<Map.Entry<String, ArrayList<Curso>>> conjuntoEntradas = plataforma.entrySet();
+        Iterator <Map.Entry<String, ArrayList<Curso>>> it = conjuntoEntradas.iterator();
+        while(it.hasNext())
+        {
+            Map.Entry <String , ArrayList<Curso>> entrada = it.next();
+            ArrayList<Curso> c = entrada.getValue();
+            for(int i = 0;i < c.size(); i++)
+            {
+                if (c.get(i).getNivel().compareTo(Nivel.) = 0)
+                {
+                    tree.add(c.get(i).getNombre());
+                    tree.remove(i);
+                }
+            }
+        }
+        return tree;
     }
 
     /**
@@ -171,7 +192,6 @@ public class PlataformaCursos
      *  
      */
     public static void main(String[] args) {
-
         PlataformaCursos plataforma = new PlataformaCursos();
         plataforma.leerDeFichero();
         plataforma.escribir();
