@@ -31,8 +31,14 @@ public class Curso
      * Si nombre = " sql essential training " devuelve "Sql Essential Training"
      */
     private String capitalizarNombre(String nombre) {
-        
-        return "";
+        char[] caracteres = nombre.toCharArray();
+        caracteres[0] = Character.toUpperCase(caracteres[0]);
+        for (int i = 0; i < nombre.length()- 2; i++) {
+            if (caracteres[i] == ' ') {
+                caracteres[i + 1] = Character.toUpperCase(caracteres[i + 1]);
+            } 
+        }
+        return new String(caracteres);
     }
 
     /**
@@ -62,8 +68,10 @@ public class Curso
      *  de la forma "día nombre-mes año"  Ej. "03 diciembre 2019" 
      */
     public String getFechaFormateada() {
-
-        return "";
+        String str = "";
+        LocalDate hoy = this.fecha;
+        str = hoy.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"));
+        return str;
     }
 
     /**

@@ -42,15 +42,15 @@ public class PlataformaCursos
      */
     public void addCurso(String categoria, Curso curso) {
         if (plataforma.containsKey(categoria)) {
-           ArrayList<Curso> array = plataforma.get(categoria);
-           array.add(curso);
+            ArrayList<Curso> array = plataforma.get(categoria);
+            array.add(curso);
         } else {
             ArrayList<Curso> array = new ArrayList<>();
             array.add(curso);
             plataforma.put(categoria, array);
         }
     }
-    
+
     /**
      *  Devuelve la cantidad de cursos en la categoría indicada
      *  Si no existe la categoría devuelve -1
@@ -74,7 +74,7 @@ public class PlataformaCursos
      * Usar el conjunto de entradas y un iterador
      */
     public String toString() {
-        
+
         return "";
     }
 
@@ -82,7 +82,6 @@ public class PlataformaCursos
      * Mostrar la plataforma
      */
     public void escribir() {
-
         System.out.println(this.toString());
     }
 
@@ -115,7 +114,20 @@ public class PlataformaCursos
      *  espacios antes y después de cada dato
      */
     private Curso obtenerCurso(String lineaCurso) {
-        return null;
+        String str = "";
+        String[] array = lineaCurso.split(SEPARADOR);
+        for (int i = 0; i < array.length; i++) {
+            array[i] = array[i].trim();
+        }
+        str = array[0].substring(0, lineaCurso.indexOf(SEPARADOR) + 1);
+        ArrayList<Curso> curso = plataforma.get(str);
+        Curso c = curso.get(1);
+        for (int i = 0; i < plataforma.size(); i++) {
+            if  (plataforma.containsValue(curso)) {
+                c = curso.get(i);
+            } 
+        }
+        return c;
     }
 
     /**
@@ -123,9 +135,13 @@ public class PlataformaCursos
      *  
      */
     public TreeSet<String> obtenerCategorias() {
-
-        return null;
-
+        TreeSet<String> tree = new TreeSet<>();
+        ArrayList<Curso> array = plataforma.get(i);
+        for (int i = 0; i < plataforma.size(); i++) {
+            HashSet<Curso> array = plataforma.get(i);
+            tree.add(array.get);
+        }
+        return tree;
     }
 
     /**
@@ -186,6 +202,5 @@ public class PlataformaCursos
         System.out.println(
             "Después de borrar ....");
         plataforma.escribir();
-
     }
 }
