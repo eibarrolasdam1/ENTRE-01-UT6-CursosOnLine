@@ -1,3 +1,4 @@
+  
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -79,7 +80,7 @@ public class PlataformaCursos
         Iterator<Map.Entry<String, ArrayList<Curso>>> it = conjuntoEntradas.iterator();
         while (it.hasNext()) {
             Map.Entry<String, ArrayList<Curso>> entrada = it.next();
-            sb.append(entrada.getKey()).append("\n").append("\t").append(entrada.getValue().toString());
+            sb.append(entrada.getKey().toUpperCase()).append("\n").append(entrada.getValue().toString()).append("\n");
         }
         return sb.toString();
     }
@@ -125,15 +126,17 @@ public class PlataformaCursos
         for (int i = 0; i < array.length; i++) {
             array[i] = array[i].trim();
         }
-        str = array[0];
-        ArrayList<Curso> curso = plataforma.get(str);
-        Curso c = curso.get(0);
-        for (int i = 0; i < plataforma.size(); i++) {
-            if  (plataforma.containsValue(curso)) {
-                c = curso.get(i);
-            } 
-        }
-        return c;
+        String[] fechas = array[1].split("/");
+        String diaStr = fechas[0];
+        int dia = Integer.parseInt(diaStr);
+        String mesStr = fechas[1];
+        int mes = Integer.parseInt(mesStr);
+        String añoStr = fechas[2];
+        int año = Integer.parseInt(añoStr);
+        LocalDate hoy = LocalDate.of(año, mes, dia); 
+        Nivel nivel = Nivel.valueOf(array[2].toUpperCase());
+        Curso curso = new Curso (array[0], hoy, nivel);
+        return curso;
     }
 
     /**
@@ -159,19 +162,17 @@ public class PlataformaCursos
 
     public TreeSet<String> borrarCursosDe(String categoria, Nivel nivel) {
         TreeSet<String> tree = new TreeSet<>();
-        Nivel enQueNivel = nivel;
         Set<Map.Entry<String, ArrayList<Curso>>> conjuntoEntradas = plataforma.entrySet();
         Iterator <Map.Entry<String, ArrayList<Curso>>> it = conjuntoEntradas.iterator();
         while(it.hasNext())
         {
             Map.Entry <String , ArrayList<Curso>> entrada = it.next();
             ArrayList<Curso> c = entrada.getValue();
-            for(int i = 0;i < c.size(); i++)
+            for(int i = c.size() - 1; i >= 0; i--)
             {
-                if (c.get(i).getNivel().compareTo(Nivel.) = 0)
-                {
+                if (c.get(i).getNivel().equals(nivel) && entrada.getKey().equals(categoria)) {
                     tree.add(c.get(i).getNombre());
-                    tree.remove(i);
+                    c.remove(i);
                 }
             }
         }
@@ -184,8 +185,23 @@ public class PlataformaCursos
      */
 
     public String cursoMasAntiguo() {
-
-        return "";
+        LocalDate fechaMin = LocalDate.MAX;
+        String nombre = "";
+        Set<Map.Entry<String, ArrayList<Curso>>> conjuntoEntradas = plataforma.entrySet();
+        Iterator <Map.Entry<String, ArrayList<Curso>>> it = conjuntoEntradas.iterator();
+        while(it.hasNext())
+        {
+            Map.Entry <String , ArrayList<Curso>> entrada = it.next();
+            ArrayList<Curso> c = entrada.getValue();
+            for(int i = c.size() - 1; i >= 0; i--)
+            {
+                if (c.get(i).getFecha().compareTo(fechaMin) <= 0) {
+                    fechaMin =  c.get(i).getFecha();
+                    nombre = c.get(i).getNombre();
+                }
+            }
+        }
+        return nombre;
     }
 
     /**
